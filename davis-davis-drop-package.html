@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Davis & Davis — Drop Package</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #0d1b2a;
+    --warm: #f5f0e8;
+    --gold: #c8923a;
+    --gold-light: #e8b96a;
+    --red: #c0392b;
+    --green: #1a6b3c;
+    --mid: #4a5568;
+    --rule: #d4c9b5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--warm);
+    color: var(--navy);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .cover {
+    background: var(--navy);
+    color: var(--warm);
+    padding: 64px 48px 56px;
+    border-bottom: 4px solid var(--gold);
+  }
+
+  .cover-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .cover-sub {
+    font-size: 14px;
+    color: #a0aec0;
+    margin-bottom: 32px;
+  }
+
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .toc-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,146,58,0.3);
+    border-radius: 4px;
+    padding: 14px 18px;
+  }
+
+  .toc-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .toc-title {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 56px 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+
+  .section-note {
+    font-size: 13px;
+    color: var(--mid);
+    font-style: italic;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ABOUT */
+  .about-block {
+    background: var(--navy);
+    color: var(--warm);
+    border-radius: 6px;
+    padding: 36px 40px;
+    border-left: 4px solid var(--gold);
+    position: relative;
+  }
+
+  .about-block::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    color: rgba(200,146,58,0.15);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .about-block p {
+    position: relative;
+    z-index: 1;
+    font-size: 15.5px;
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  .about-block p:last-child { margin-bottom: 0; }
+
+  .about-usage {
+    margin-top: 20px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--mid);
+  }
+
+  /* REVIEWS */
+  .review-pair {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .review-pair:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .reviewer-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .before, .after {
+    border-radius: 4px;
+    padding: 18px 20px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .before {
+    background: #fff5f5;
+    border: 1px solid #fcc;
+  }
+
+  .after {
+    background: #f0faf4;
+    border: 1px solid #9ae6b4;
+  }
+
+  .ba-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .before .ba-label { color: var(--red); }
+  .after .ba-label { color: var(--green); }
+
+  .why-works {
+    background: #f7f3ec;
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: var(--mid);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .why-works strong { color: var(--navy); }
+
+  /* HEAT PUMP PAGE */
+  .page-preview {
+    background: white;
+    border: 1px solid #e2d9cc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .page-browser-bar {
+    background: #f1ede6;
+    border-bottom: 1px solid #e2d9cc;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff6b6b; }
+  .dot-y { background: #ffd43b; }
+  .dot-g { background: #69db7c; }
+
+  .url-bar {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+    margin-left: 8px;
+    flex: 1;
+  }
+
+  .page-content {
+    padding: 40px 48px;
+  }
+
+  .page-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--navy);
+  }
+
+  .page-lead {
+    font-size: 16px;
+    color: var(--mid);
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+  }
+
+  .rebate-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .rebate-box {
+    background: var(--navy);
+    color: white;
+    border-radius: 5px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .rebate-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold-light);
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rebate-label {
+    font-size: 11px;
+    color: #a0aec0;
+    line-height: 1.4;
+  }
+
+  .rebate-link {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    margin-top: 8px;
+  }
+
+  .page-section-head {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin: 24px 0 10px;
+  }
+
+  .page-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .page-list li {
+    padding: 7px 0 7px 20px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #f0ece5;
+  }
+
+  .page-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-family: monospace;
+  }
+
+  .page-cta {
+    margin-top: 28px;
+    background: var(--navy);
+    color: white;
+    border-radius: 5px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .cta-text {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .cta-sub { font-size: 12px; color: #a0aec0; margin-top: 2px; }
+
+  .cta-btn {
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  /* CONTENT CALENDAR */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .week-block {
+    border: 1px solid var(--rule);
+    border-bottom: none;
+  }
+
+  .week-block:last-child { border-bottom: 1px solid var(--rule); }
+
+  .week-header {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: stretch;
+  }
+
+  .week-num {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 8px;
+    text-align: center;
+    border-right: 1px solid rgba(200,146,58,0.3);
+  }
+
+  .week-num .wn { font-size: 22px; font-weight: 600; color: white; font-family: 'Playfair Display', serif; }
+
+  .week-theme {
+    padding: 12px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    background: #faf8f4;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+  }
+
+  .week-posts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .post-item {
+    padding: 14px 20px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-size: 13.5px;
+  }
+
+  .post-item:nth-child(2n) { border-right: none; }
+  .post-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .post-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .tag-edu { background: #ebf4ff; color: #2b6cb0; }
+  .tag-local { background: #f0fff4; color: #276749; }
+  .tag-heat { background: #fffaf0; color: #b7791f; }
+  .tag-trust { background: #faf5ff; color: #6b46c1; }
+
+  /* EMAIL */
+  .email-preview {
+    background: white;
+    border: 1px solid #e2d9cc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .email-header {
+    background: #f1ede6;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e2d9cc;
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    display: grid;
+    gap: 4px;
+  }
+
+  .email-field { color: var(--mid); }
+  .email-field strong { color: var(--navy); }
+  .email-subject-line { color: var(--navy); font-weight: 600; margin-top: 4px; }
+
+  .email-body {
+    padding: 28px 32px;
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: #2d3748;
+  }
+
+  .email-body p { margin-bottom: 16px; }
+  .email-body p:last-child { margin-bottom: 0; }
+
+  .email-insert {
+    background: #f0faf4;
+    border: 1px solid #9ae6b4;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+
+  .email-sig {
+    font-style: italic;
+    color: var(--mid);
+    font-size: 13px;
+  }
+
+  /* FOOTER */
+  .doc-footer {
+    background: var(--navy);
+    color: #718096;
+    text-align: center;
+    padding: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    .cover { padding: 40px 24px; }
+    .cover h1 { font-size: 28px; }
+    .toc { grid-template-columns: 1fr; }
+    .section { padding: 40px 20px; }
+    .before-after { grid-template-columns: 1fr; }
+    .rebate-boxes { grid-template-columns: 1fr; }
+    .week-posts { grid-template-columns: 1fr; }
+    .page-content { padding: 24px 20px; }
+    .page-cta { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label">MBRACE Insight — Client Drop Package</div>
+  <h1>Davis & Davis<br>Heating & Cooling</h1>
+  <p class="cover-sub">4 assets. Zero fluff. Deploy tonight.</p>
+  <div class="toc">
+    <div class="toc-item">
+      <span class="toc-num">01 —</span>
+      <span class="toc-title">Rewritten "About" (GBP + Site)</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">02 —</span>
+      <span class="toc-title">Negative Review Responses</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">03 —</span>
+      <span class="toc-title">Heat Pump Page (with Real Rebates)</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">04 —</span>
+      <span class="toc-title">30-Day GBP Content Calendar</span>
+    </div>
+  </div>
+</div>
+
+<!-- ASSET 01: ABOUT -->
+<div class="section">
+  <div class="section-label">Asset 01</div>
+  <h2>Rewritten "About" Description</h2>
+  <p class="section-note">Drop this verbatim into Google Business Profile → "Business description," Yelp "About," and their homepage. It replaces the current block that reads like a classified ad. This version does two things: it leads with trust anchors Google surfaces in AI summaries, and it converts the 60-year story into a reason to call — not just a fact to admire.</p>
+
+  <div class="about-block">
+    <p>Since 1966, Davis & Davis has served Montgomery County and Prince George's County with one focus: keeping homes safe, comfortable, and reliable — season after season.</p>
+    <p>What John and Berk Davis started as a commitment to their Kensington neighbors has grown into a team of over 30 specialists serving more than 25,000 households across the DMV. The mission hasn't changed: show up, do the job right, and treat every home like it's your own.</p>
+    <p>Heating and cooling isn't just about comfort. When temperatures spike or drop, a failed system can become a health risk — especially for elderly residents, young children, and families without alternatives. That's why we maintain same-day and emergency service, seven days a week, and why our technicians carry fully stocked trucks on every call.</p>
+    <p>From routine maintenance and emergency repairs to complete system replacements and modern heat pump installations — we help Montgomery County homeowners make confident decisions about the systems that protect their families.</p>
+    <p>We're not a franchise. We're not a private equity rollup. We're the same local company that's been answering your neighbors' calls for nearly six decades — and we plan to be here for six more.</p>
+  </div>
+  <p class="about-usage" style="margin-top:14px;">→ Use on: Google Business Profile · Yelp · Homepage "About" section · Facebook "About" tab</p>
+</div>
+
+<!-- ASSET 02: REVIEW RESPONSES -->
+<div class="section">
+  <div class="section-label">Asset 02</div>
+  <h2>Negative Review Responses</h2>
+  <p class="section-note">These are written for the exact reviews left on their profile. Each one follows the same structure: acknowledge the specific situation → signal accountability → redirect offline → close with controlled confidence. Not apology theater. Not defensiveness. Trust repair.</p>
+
+  <!-- IAN LEE -->
+  <div class="review-pair">
+    <div class="reviewer-name">Reviewer: Ian Lee — New AC installation failure, infant in home, 6 visits, no apology from manager</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT (no response)</span>
+        Silence. This review has sat unanswered. Every prospective customer reading it sees zero accountability from ownership.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RESPONSE TO POST</span>
+        Ian — this is not the experience a new system installation should produce, and we understand why you're frustrated. An $8,000 investment followed by repeated failed visits and a manager who didn't follow through is unacceptable, full stop. We'd like a senior technician to review the complete installation and ensure the system is performing correctly. Please contact our office directly and reference this review so we can make this a priority. We appreciate you holding us to a higher standard.
+      </div>
+    </div>
+    <div class="why-works"><strong>Why this works:</strong> Acknowledges the dollar amount (shows you read it). Names the failure specifically (multiple visits + manager silence). Introduces escalation language ("senior technician") — signals control without sounding scripted. No hollow apology.</div>
+  </div>
+
+  <!-- LORI -->
+  <div class="review-pair">
+    <div class="reviewer-name">Reviewer: Lori Ambrusch — Service contract "false advertising," 15-min service, no callback from Kevin</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT (no response)</span>
+        Silence. This is a Local Guide with 51 reviews — her feedback carries extra weight in Google's ranking signals. No response is a compounding liability.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RESPONSE TO POST</span>
+        Lori — we appreciate the detail here, because this is exactly the kind of feedback that matters. A service contract should reflect what was promised, and a 15-minute visit that skips filters and charges separately for refrigerant isn't that. Additionally, not receiving a callback from our office over the course of a week is a failure in our process, not yours. We'd like to review your contract and service history directly. Please reach out and ask to have this escalated — we want to get this right.
+      </div>
+    </div>
+    <div class="why-works"><strong>Why this works:</strong> Validates specific complaints (15-min visit, refrigerant charge, no callback) without repeating embarrassing details verbatim. Frames the service contract issue as a process gap rather than accepting false advertising framing. Keeps Kevin's name out of the response.</div>
+  </div>
+
+  <!-- S S — ELDERLY MOTHER -->
+  <div class="review-pair">
+    <div class="reviewer-name">Reviewer: S S — 95-year-old mother, furnace failure after maintenance, "turn it off and back on" response</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT (no response)</span>
+        Silence on the highest-risk review on their profile. A furnace failure for a 95-year-old with "try turning it off" as the response — and no owner reply. This is what prospective customers remember.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RESPONSE TO POST</span>
+        We hear you — and we want you to know this review was taken seriously internally. A furnace that fails after annual maintenance, followed by repeat service visits without resolution and inadequate phone guidance, is not acceptable for any homeowner — and especially not for a family caring for an elderly parent. If this is still an open matter, please contact us directly so we can escalate this immediately. If it has been resolved elsewhere, we understand — and we're committed to making sure this type of response never happens again.
+      </div>
+    </div>
+    <div class="why-works"><strong>Why this works:</strong> Opens by acknowledging the severity without being performative. Mentions the specific failure sequence. Covers both outcomes (resolved/unresolved). The phrase "taken seriously internally" signals ownership culture without making hollow promises. Critical review to respond to — DO NOT leave this one unanswered.</div>
+  </div>
+
+  <!-- IAN MILLER -->
+  <div class="review-pair">
+    <div class="reviewer-name">Reviewer: Ian Miller — Billing from before arrival, technician behavior, "Do Not Schedule" address known since 2015</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT (no response)</span>
+        Silence. This review contains embarrassing but specific billing concerns buried under a darkly comedic narrative. Without a response, the humor lands entirely against the company.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RESPONSE TO POST</span>
+        Ian — the billing discrepancy you described is a legitimate concern, and we'd like to review the invoice from that visit. Our pricing is based on time on-site, and if the clock started before our technician arrived, that should be corrected. We also recognize the communication failure at the end of that visit — learning after the fact that an address wasn't in our service scope isn't how we want that information delivered. Please reach out so we can review this properly.
+      </div>
+    </div>
+    <div class="why-works"><strong>Why this works:</strong> Focuses only on billing and final communication failure — doesn't touch the rest of the narrative. Reframes the billing issue in a correctable, professional way. The response reads measured and specific, not defensive — which will read better to prospective customers than the underlying review.</div>
+  </div>
+
+  <!-- ANDREA — FINANCING -->
+  <div class="review-pair">
+    <div class="reviewer-name">Reviewer: Andrea Escobar — Financing through Mariner Finance, interest charges, no intervention from D&D</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT (no response)</span>
+        Silence — on a 10-year-old review that still ranks in search results. Anyone researching their financing options will find this with no context or rebuttal.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RESPONSE TO POST</span>
+        Andrea — thank you for laying this out so clearly, even years later. The gap between the installation date and when payment materials arrived creates a real timing problem that we should be communicating upfront. Your feedback identified a genuine process issue. Financing terms should be explained at the point of sale — including when the interest-free period begins — and that's something we've taken steps to address. We're sorry this experience fell short of what you deserved.
+      </div>
+    </div>
+    <div class="why-works"><strong>Why this works:</strong> Doesn't accept liability for Mariner's behavior specifically. Acknowledges the real process gap (timing of payment start vs. materials delivery) without legal exposure. "We've taken steps to address" is credible on a decade-old review. Closes with a genuine apology rather than a redirect.</div>
+  </div>
+
+  <!-- POSITIVE LEVERAGE -->
+  <div class="review-pair">
+    <div class="reviewer-name">Positive Leverage: Ray Sarhan + Kim Dodd — Use these to set the brand tone in the review stream</div>
+    <div class="before-after">
+      <div class="before">
+        <span class="ba-label">✗ CURRENT APPROACH</span>
+        "Thank you!" — or nothing at all. Positive reviews are the highest-value real estate in a GBP and most companies throw it away with two words.
+      </div>
+      <div class="after">
+        <span class="ba-label">✓ RAY SARHAN RESPONSE</span>
+        Ray — Les and Tim will appreciate you sharing this. A heat pump installation should feel seamless from the first conversation to the final walkthrough, and it means a lot when a customer takes the time to say so. We're glad to carry on a tradition your family started with us — that's exactly the kind of relationship we're here to build. Thank you for trusting us again.
+      </div>
+    </div>
+    <div class="why-works"><strong>Kim Dodd:</strong> "Kim — Daniel will be glad to hear this. A new Bryant heat pump is a significant investment, and we want every customer to walk away feeling confident about what they have and who installed it. Thank you for the 5 stars — we'll pass these along to the team."</div>
+  </div>
+</div>
+
+<!-- ASSET 03: HEAT PUMP PAGE -->
+<div class="section">
+  <div class="section-label">Asset 03</div>
+  <h2>Heat Pump Service Page (Publish-Ready)</h2>
+  <p class="section-note">This page targets buyers, not browsers. FH Furr does not have a page that explains real incentive amounts, links to sources, or tells homeowners what to check before calling. This does. Deploy as a standalone page at /heat-pump-installation-montgomery-county or add to existing site as a new service area page.</p>
+
+  <div class="page-preview">
+    <div class="page-browser-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <div class="url-bar">davisanddavisinc.com/heat-pump-installation-montgomery-county-md</div>
+    </div>
+    <div class="page-content">
+      <div class="page-h1">Heat Pump Installation in Montgomery County, MD<br><span style="font-size:20px;font-weight:400;color:#666;">Rebates, Real Costs, and When It Actually Makes Sense</span></div>
+      <p class="page-lead">Most homeowners in Montgomery County aren't asking "should I get a heat pump?" They're asking: will it keep my house warm when it's 18 degrees outside, and what will it actually cost me after everything? Those are the right questions. Here's the straight answer.</p>
+
+      <div class="page-section-head">Maryland Rebates — Real Numbers (2026)</div>
+      <div class="rebate-boxes">
+        <div class="rebate-box">
+          <span class="rebate-amount">$15,000</span>
+          <span class="rebate-label">Max rebate via EmPOWER Maryland for fuel-switching (gas/oil → electric heat pump)</span>
+          <a class="rebate-link" href="https://energy.maryland.gov/pages/facts/empower.aspx" target="_blank">energy.maryland.gov ↗</a>
+        </div>
+        <div class="rebate-box">
+          <span class="rebate-amount">$7,000</span>
+          <span class="rebate-label">Instant rebates available through BGE & Pepco for qualifying installations</span>
+          <a class="rebate-link" href="https://homeenergysavings.pepco.com/" target="_blank">pepco.com ↗</a>
+        </div>
+        <div class="rebate-box">
+          <span class="rebate-amount">$2,000</span>
+          <span class="rebate-label">Federal tax credit (25C) for qualifying heat pump systems — check current eligibility</span>
+          <a class="rebate-link" href="https://www.energystar.gov/about/federal_tax_credits" target="_blank">energystar.gov ↗</a>
+        </div>
+      </div>
+
+      <p style="font-size:13px;color:#718096;margin-bottom:24px;"><em>Rebates require a $100 home energy audit through a certified contractor, pre-approval, and approved equipment. Rebates can be stacked. We walk you through every step before installation begins.</em></p>
+
+      <div class="page-section-head">Do Heat Pumps Work in Maryland Winters?</div>
+      <p style="margin-bottom:16px;font-size:14px;">Yes — with the right system design. Maryland winters average 18–35°F in Montgomery County. Modern cold-climate heat pumps are rated to full capacity down to 5°F. The homes we see struggle are ones where the unit was sized for a different climate, or where ductwork was never addressed.</p>
+      <p style="margin-bottom:24px;font-size:14px;">We've installed heat pumps across Kensington, Silver Spring, Bethesda, and Rockville. No two homes are the same. What works in a 1970s split-level in Chevy Chase is different from a newer townhouse in Germantown. We size to the home — not to a catalog spec.</p>
+
+      <div class="page-section-head">When We Recommend a Heat Pump</div>
+      <ul class="page-list">
+        <li>Replacing a system 15+ years old that's driving up energy bills</li>
+        <li>Switching from oil or propane (largest rebate eligibility)</li>
+        <li>Home with functional ductwork in good condition</li>
+        <li>Owner planning to stay 5+ years (full payback window)</li>
+        <li>BGE or Pepco customer (both utilities have strong rebate programs active now)</li>
+      </ul>
+
+      <div class="page-section-head">When We Don't Recommend One</div>
+      <ul class="page-list">
+        <li>Ductwork is compromised and replacement cost changes the math significantly</li>
+        <li>Home has major insulation or air sealing issues (fix that first — or combine)</li>
+        <li>Short-term ownership horizon where ROI won't close</li>
+        <li>Existing system has years of reliable life left</li>
+      </ul>
+
+      <div class="page-section-head">What a Davis & Davis Installation Includes</div>
+      <ul class="page-list">
+        <li>Manual J load calculation (correct sizing — not guesswork)</li>
+        <li>Rebate eligibility review before you commit to anything</li>
+        <li>Full removal of existing system</li>
+        <li>Installation, commissioning, and performance testing</li>
+        <li>Thermostat integration and full homeowner walkthrough</li>
+        <li>Post-install support — we answer questions after the job is done</li>
+      </ul>
+
+      <div class="page-cta">
+        <div>
+          <div class="cta-text">Get a heat pump estimate — including rebate eligibility review</div>
+          <div class="cta-sub">Family-owned · Serving Montgomery County since 1966 · No pressure consultations</div>
+        </div>
+        <a class="cta-btn" href="tel:3019427210">Call (301) 942-7210</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSET 04: CONTENT CALENDAR -->
+<div class="section">
+  <div class="section-label">Asset 04</div>
+  <h2>30-Day GBP Content Calendar</h2>
+  <p class="section-note">This isn't "posting content." This is search capture from the map pack. Each post feeds Google's local ranking signals while educating buyers at the decision point. FH Furr posts generic seasonal reminders. These posts position Davis & Davis as the company that knows what's actually happening in these neighborhoods — because they're the ones showing up.</p>
+
+  <div class="calendar-grid">
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-num"><span class="wn">W1</span>TRUST<br>+ AUTH</div>
+        <div class="week-theme">Build credibility before anyone asks for it</div>
+      </div>
+      <div class="week-posts">
+        <div class="post-item">
+          <span class="post-tag tag-edu">Educational</span><br>
+          "Why AC systems freeze — and what it actually means for your home" (airflow vs. refrigerant; when to call vs. wait)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-edu">Educational</span><br>
+          "What a proper HVAC maintenance visit should include" (filters, coils, refrigerant, electrical check — the full list)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-edu">Educational</span><br>
+          "3 things to check before you call for AC repair" (reduces false alarms; positions expertise)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-trust">Story Post</span><br>
+          Real job post: frozen coil diagnosis — photo of job site + 3-sentence explanation of cause and fix
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-num"><span class="wn">W2</span>HEAT<br>PUMP</div>
+        <div class="week-theme">Own the conversation FH Furr is ignoring</div>
+      </div>
+      <div class="week-posts">
+        <div class="post-item">
+          <span class="post-tag tag-heat">Heat Pump</span><br>
+          "Why heat pumps are taking over Maryland homes in 2026" — link to rebate page
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-heat">Heat Pump</span><br>
+          "Gas vs. heat pump: what Montgomery County homeowners are actually switching to — and why"
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-heat">Heat Pump</span><br>
+          "Maryland rebates: here's how much you can actually save on a heat pump this year" — real numbers ($7k–$15k)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-heat">Heat Pump</span><br>
+          "When a heat pump is NOT the right choice" — counterintuitive; builds trust by showing honest guidance
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-num"><span class="wn">W3</span>LOCAL<br>GEO</div>
+        <div class="week-theme">Hyper-local — every town FH Furr treats as a zip code</div>
+      </div>
+      <div class="week-posts">
+        <div class="post-item">
+          <span class="post-tag tag-local">Kensington</span><br>
+          "AC repair in Kensington: what we see most often in homes built before 1985" (airflow, older ductwork)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-local">Rockville</span><br>
+          "Rockville homes: the HVAC issues that show up in older systems every summer" — photo if available
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-local">Bethesda</span><br>
+          "Bethesda system replacements: what to expect from start to finish when upgrading a full HVAC system"
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-local">Silver Spring</span><br>
+          "Silver Spring: why airflow problems are the most common call we get — and what's behind it"
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-num"><span class="wn">W4</span>TRUST<br>LOOP</div>
+        <div class="week-theme">Reviews → content → more reviews (the compounding machine)</div>
+      </div>
+      <div class="week-posts">
+        <div class="post-item">
+          <span class="post-tag tag-trust">Review → Story</span><br>
+          Pull 1 strong positive review (Ray Sarhan / Kim Dodd level). Turn it into a 4-sentence job story with photo.
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-trust">Education → Trust</span><br>
+          "What homeowners misunderstand about HVAC quotes" — frictionless way to address pricing concerns before they become reviews
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-edu">Educational</span><br>
+          "Why some HVAC repairs fail — and how we avoid that" (sizing, diagnostics, repeat visits — addresses the Ian Lee-type fear)
+        </div>
+        <div class="post-item">
+          <span class="post-tag tag-trust">QR Push</span><br>
+          Post: "58 years of local service — if we've taken care of your home, a 30-second Google review helps your neighbors find us." + QR
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;padding:18px 20px;background:#f0faf4;border:1px solid #9ae6b4;border-radius:4px;font-size:13px;">
+    <strong>Post format (every time):</strong> 1 photo (real job over stock) · 3–5 sentences · 1 clear takeaway · 1 call to action · No hashtag spam. That's it. Consistency beats creativity here.
+  </div>
+</div>
+
+<!-- SEND EMAIL -->
+<div class="section">
+  <div class="section-label">Send This</div>
+  <h2>The Outreach Email</h2>
+  <p class="section-note">Send to davisanddavisinc@msn.com. Attach this document (or a PDF of the review responses + heat pump page only). Do not explain everything. Create the curiosity gap. The email is the door. The assets are what gets you in the room.</p>
+
+  <div class="email-preview">
+    <div class="email-header">
+      <div class="email-field"><strong>To:</strong> davisanddavisinc@msn.com</div>
+      <div class="email-field"><strong>From:</strong> [your email]</div>
+      <div class="email-subject-line">Subject: Quick fix based on your Google profile — Davis & Davis</div>
+    </div>
+    <div class="email-body">
+      <p>Hi Kevin —</p>
+      <p>I spent some time going through your Google profile, reviews, and service pages. Davis & Davis has more trust equity than almost any HVAC company in Montgomery County — 58 years, thousands of customers, a real local reputation. But a few things are costing you calls that you've already earned.</p>
+      <p>I rewrote your most critical negative reviews (Ian Lee, Lori, the elderly mother situation) and rebuilt your heat pump page to include the actual 2026 rebate numbers from BGE and Pepco — most of your competitors don't have this information anywhere on their site.</p>
+
+      <div class="email-insert">
+        <strong>Example (Ian Lee review — currently no response):</strong><br><br>
+        <em>"Ian — this is not the experience a new system installation should produce. An $8,000 investment followed by repeated failed visits and a manager who didn't follow through is unacceptable, full stop. We'd like a senior technician to review the complete installation. Please contact our office and reference this review so we can make this a priority."</em>
+      </div>
+
+      <p>That one response, posted today, changes what the next 50 people reading that review walk away thinking.</p>
+      <p>I've put together a short package with the review responses, a rewritten About section for GBP, and a heat pump page ready to publish. I'll send it over if you want to take a look — no obligation.</p>
+      <p class="email-sig">— Max Fisher<br>MBRACE Insight LLC · Gaithersburg, MD<br>[phone]</p>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  MBRACE Insight LLC — Prepared for Davis & Davis Heating & Cooling · Kensington, MD · March 2026
+</div>
+
+</body>
+</html>
