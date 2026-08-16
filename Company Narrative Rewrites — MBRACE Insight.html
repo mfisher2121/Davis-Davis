@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Narrative Rewrites — MBRACE Insight</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#12120f;--cream:#f9f6f0;--warm:#fdfbf7;
+  --gold:#b8892a;--gold-pale:#f5ecd7;--rule:#e0d8cc;
+  --slate:#3a4a5c;--slate-light:#6b7c8d;
+  --green:#1e5c3a;--green-pale:#eef7f2;
+  --danger:#8b2020;--danger-pale:#fdf0f0;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'Courier Prime',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--warm);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.top-nav{position:sticky;top:0;z-index:100;background:var(--ink);display:flex;align-items:stretch;border-bottom:2px solid var(--gold);overflow-x:auto}
+.nav-brand{padding:13px 20px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold);white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);flex-shrink:0;display:flex;align-items:center}
+.nav-tabs{display:flex;overflow-x:auto}
+.nav-tab{padding:13px 16px;font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap;letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.07);cursor:pointer;background:none;border-top:none;border-left:none;border-bottom:none;font-family:var(--sans);transition:all .12s}
+.nav-tab:hover{color:white;background:rgba(255,255,255,.05)}
+.nav-tab.active{color:var(--gold);background:rgba(184,137,42,.08)}
+
+.page-section{display:none;max-width:900px;margin:0 auto;padding:48px 28px 80px}
+.page-section.visible{display:block}
+
+.sec-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1.1;margin-bottom:8px}
+.sec-sub{font-size:13px;color:var(--slate-light);margin-bottom:36px;max-width:680px;line-height:1.6}
+
+/* INTEL STRIP */
+.intel-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:36px;padding:20px;background:var(--cream);border:1px solid var(--rule);border-radius:4px}
+.intel-item{}
+.intel-label{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--slate-light);margin-bottom:4px}
+.intel-val{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
+.intel-gap{font-size:11px;color:var(--danger);margin-top:2px}
+
+/* WHAT WE SAW */
+.observation-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.obs-card{border:1px solid var(--rule);border-radius:4px;padding:16px 20px;background:white;display:flex;gap:14px;align-items:flex-start}
+.obs-icon{font-family:var(--mono);font-size:18px;flex-shrink:0;margin-top:2px}
+.obs-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.obs-lbl.gold{color:var(--gold)}
+.obs-lbl.red{color:var(--danger)}
+.obs-lbl.green{color:var(--green)}
+.obs-text{font-size:13px;line-height:1.6;color:var(--ink)}
+
+/* COPY BLOCKS */
+.copy-section{margin-bottom:32px}
+.copy-section-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--rule);margin-bottom:16px}
+.copy-section-title{font-family:var(--serif);font-size:22px;font-weight:600}
+.copy-section-sub{font-size:12px;color:var(--slate-light);margin-top:2px}
+.deploy-badge{font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:4px 10px;border-radius:2px}
+.db-gbp{background:var(--gold-pale);color:#7a5c10}
+.db-yelp{background:var(--danger-pale);color:var(--danger)}
+.db-web{background:var(--green-pale);color:var(--green)}
+.db-blog{background:#eeedfe;color:#3c3489}
+
+.copy-card{border:1px solid var(--rule);border-radius:4px;overflow:hidden;margin-bottom:16px}
+.copy-card-label{background:var(--cream);padding:10px 16px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-light);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between}
+.copy-body{padding:20px;font-size:14px;line-height:1.9;color:var(--ink)}
+.copy-body p{margin-bottom:12px}
+.copy-body p:last-child{margin-bottom:0}
+.copy-btn{display:block;margin:0 16px 16px;padding:9px 16px;background:var(--ink);color:white;border:none;border-radius:3px;font-size:10px;font-family:var(--mono);letter-spacing:.1em;cursor:pointer;text-transform:uppercase;text-align:center;transition:opacity .15s}
+.copy-btn:hover{opacity:.78}
+
+/* BEFORE/AFTER */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.ba-card{border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.ba-label{padding:10px 14px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule)}
+.ba-before .ba-label{background:#fdf0f0;color:var(--danger)}
+.ba-after .ba-label{background:var(--green-pale);color:var(--green)}
+.ba-text{padding:16px;font-size:13px;line-height:1.75;color:var(--ink)}
+
+/* BLOG STRATEGY */
+.blog-posts{display:flex;flex-direction:column;gap:8px}
+.blog-post{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;background:white;border:1px solid var(--rule);border-radius:4px}
+.bp-num{font-family:var(--mono);font-size:11px;color:var(--slate-light);min-width:24px;flex-shrink:0;padding-top:1px}
+.bp-tag{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:2px;flex-shrink:0;white-space:nowrap;margin-top:1px}
+.tag-gold{background:var(--gold-pale);color:#7a5c10}
+.tag-green{background:var(--green-pale);color:var(--green)}
+.tag-blue{background:#e6f1fb;color:#185fa5}
+.tag-purple{background:#eeedfe;color:#3c3489}
+.bp-content{}
+.bp-title{font-size:13px;font-weight:500;margin-bottom:2px}
+.bp-hook{font-size:11px;color:var(--slate-light);line-height:1.5}
+
+.divider{border:none;border-top:1px solid var(--rule);margin:28px 0}
+.highlight-box{padding:18px 22px;background:var(--ink);color:white;border-radius:4px;margin:20px 0;font-size:13px;line-height:1.8}
+.highlight-box strong{color:var(--gold)}
+.insight-box{padding:16px 20px;background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:3px;font-size:13px;line-height:1.7;margin:16px 0}
+.insight-box strong{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7a5c10;margin-bottom:6px}
+
+@media(max-width:640px){
+  .ba-grid{grid-template-columns:1fr}
+  .page-section{padding:32px 16px 60px}
+  .sec-title{font-size:32px}
+  .intel-strip{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">MBRACE · NARRATIVE REWRITES</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="show('davis')">Davis & Davis</button>
+    <button class="nav-tab" onclick="show('fannon')">T.J. Fannon</button>
+    <button class="nav-tab" onclick="show('warner')">Warner Service</button>
+    <button class="nav-tab" onclick="show('airdoctor')">Air Doctor</button>
+    <button class="nav-tab" onclick="show('johnson')">J&J Heating</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ DAVIS & DAVIS ═══════════════════════════════ -->
+<div class="page-section visible" id="sec-davis">
+  <div class="sec-eyebrow">Company 01 · Kensington, MD</div>
+  <h1 class="sec-title">Davis & Davis</h1>
+  <p class="sec-sub">Est. 1966 · 58 years · blog.davisanddavisinc.com active since Jan 2026 · Yelp 3.1 stars (85 reviews) · Washingtonian Magazine "Home Improvement Experts" 2011 · Pulse of the City 9 consecutive years · Lennox Centurion · Angie's List Super Service 2007–2020</p>
+
+  <div class="intel-strip">
+    <div class="intel-item"><div class="intel-label">Blog</div><div class="intel-val">ACTIVE — Jan 2026</div><div class="intel-gap">Generic titles, no SEO structure</div></div>
+    <div class="intel-item"><div class="intel-label">Yelp rating</div><div class="intel-val">3.1 / 5 · 85 reviews</div><div class="intel-gap">No response to most negatives</div></div>
+    <div class="intel-item"><div class="intel-label">Washingtonian</div><div class="intel-val">2011 cover feature</div><div class="intel-gap">Not linked externally anywhere</div></div>
+    <div class="intel-item"><div class="intel-label">Pulse of City</div><div class="intel-val">9 consecutive years</div><div class="intel-gap">Image on site, no outbound link</div></div>
+    <div class="intel-item"><div class="intel-label">Heat pump page</div><div class="intel-val">Does not exist</div><div class="intel-gap">$15K rebates go unmentioned</div></div>
+    <div class="intel-item"><div class="intel-label">Phone numbers</div><div class="intel-val">4 local area codes</div><div class="intel-val" style="color:var(--green);font-size:11px">Hyper-local infrastructure already exists</div></div>
+  </div>
+
+  <div class="observation-grid">
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Gold</div><div class="obs-text">The blog at blog.davisanddavisinc.com is live and posting since January 2026. March 12 post, March 6, February 21, February 3, January 23, January 15 — they're consistent. The content is generic (stock photos, templated copy) but the infrastructure exists and the habit is forming. This is the newsletter and content flywheel waiting to be activated. Your email references this directly and offers to make it convert.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Washingtonian Cover</div><div class="obs-text">Davis & Davis appeared on the Washingtonian Magazine "Home Improvement Experts" cover in March 2011. The photo is sitting in their Yelp gallery (photo 29 of 43). Nobody is using this. A Washingtonian cover feature from 2011 should be prominently displayed on every platform — website hero, GBP, Yelp bio, blog header. It's the most powerful third-party credibility signal they have and it's buried in a Yelp photo gallery.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The 4-Phone-Number Infrastructure</div><div class="obs-text">Chevy Chase/Kensington (301-942-7210) · Rockville/Gaithersburg (301-468-0999) · Bethesda/Potomac (301-986-8668) · Silver Spring/Wheaton (301-384-9060). This is hyper-local area code targeting already built. FH Furr doesn't have this. The 90-day content calendar (Kensington, Rockville, Bethesda, Silver Spring geo-specific posts) maps perfectly onto existing infrastructure.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">▲</div>
+      <div><div class="obs-lbl red">The Gap</div><div class="obs-text">Yelp description is four lines of generic copy. No mention of 58 years. No mention of the Washingtonian cover. No mention of Pulse of the City. The Lennox Centurion award, Angie's List Super Service (2007–2020), BBB accreditation, and Best of Bethesda logos sit in a footer with zero external links — invisible to Google. The blog posts are named "Keep Your Heating and Cooling Systems Running at Peak Performance" — templated, no local keywords, no differentiation.</div></div>
+    </div>
+  </div>
+
+  <!-- GBP ABOUT -->
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">GBP / Yelp About Description</div><div class="copy-section-sub">Replace immediately. 750 characters max for GBP. Yelp has no limit — use the long version.</div></div>
+      <span class="deploy-badge db-gbp">DEPLOY: GBP + YELP</span>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card ba-before">
+        <div class="ba-label">Current (Generic)</div>
+        <div class="ba-text">Davis & Davis Air Conditioning & Heating. Since 1966. Celebrating over 50 years in service. [No awards. No story. No differentiation. No heat pump mention. No rebates.]</div>
+      </div>
+      <div class="ba-card ba-after">
+        <div class="ba-label">Rewritten (Converts)</div>
+        <div class="ba-text">Family-owned since 1966. 58 years of serving Montgomery County, Prince George's County, and the greater DC area — and still the same people answering the phone.<br><br>Washingtonian Magazine "Home Improvement Experts." Pulse of the City Award — 9 consecutive years. Lennox Centurion Dealer. Angie's List Super Service Award. These aren't marketing claims. They're what happens when you show up correctly for six decades.</div>
+      </div>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">GBP Version (750 chars) <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Family-owned since 1966. 58 years serving Montgomery County, Prince George's County, and the DC area — and still the same people answering the phone.</p>
+        <p>Washingtonian Magazine "Home Improvement Experts." Pulse of the City Award — 9 consecutive years. Lennox Centurion Dealer. Angie's List Super Service Award 2007–2020. These aren't marketing claims. They're what six decades of showing up correctly looks like.</p>
+        <p>We specialize in heat pump installations, system replacements, AC repair, furnace service, and preventative maintenance contracts. Maryland rebates up to $15,000 available for qualifying heat pump installations — we walk you through eligibility before any commitment.</p>
+        <p>7 days a week · 7:30am–9:30pm · (301) 942-7210</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy GBP Version</button>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">Yelp Long Version <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Davis & Davis Air Conditioning & Heating has been family-owned and operated in Kensington, Maryland since 1966. What began with a commitment to keeping Montgomery County homes comfortable has grown into one of the most recognized HVAC companies in the DC metro area — not through advertising, but through the kind of reputation that compounds over 58 years of honest service.</p>
+        <p>In 2011, Washingtonian Magazine named Davis & Davis among the DC area's Home Improvement Experts. We've won the Pulse of the City Award nine consecutive times. We hold Lennox Centurion Dealer status for outstanding dealer performance, Angie's List Super Service recognition from 2007 through 2020, and BBB accreditation. We carry Lennox, Bryant, and Carrier systems because we've vetted what performs in Maryland's climate.</p>
+        <p>Right now, Maryland homeowners can receive up to $15,000 back on qualifying heat pump installations through BGE, Pepco, and EmPOWER Maryland programs. Most companies don't explain how rebates actually work — we do, before you make any decision.</p>
+        <p>We serve Chevy Chase, Kensington, Rockville, Gaithersburg, Bethesda, Potomac, Silver Spring, and Wheaton with dedicated local numbers for each area. Seven days a week, 7:30am to 9:30pm. Factory-trained, MD-licensed, EPA-certified technicians. Never a subcontractor.</p>
+        <p>We've been here for 58 years. We'll be here tomorrow.</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy Yelp Version</button>
+    </div>
+  </div>
+
+  <!-- BLOG STRATEGY -->
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">Blog Activation Strategy</div><div class="copy-section-sub">blog.davisanddavisinc.com — the infrastructure exists. These are the next 8 post titles that actually work.</div></div>
+      <span class="deploy-badge db-blog">DEPLOY: BLOG</span>
+    </div>
+    <div class="insight-box"><strong>What you tell them</strong>"You already started the blog — that's more than 90% of HVAC companies will ever do. Let me show you what the titles should look like to actually rank and convert, versus what you have now."</div>
+    <div class="blog-posts">
+      <div class="blog-post"><span class="bp-num">01</span><span class="bp-tag tag-gold">LOCAL</span><div class="bp-content"><div class="bp-title">Why furnaces short-cycle in Silver Spring MD — what Chris W.'s repair revealed</div><div class="bp-hook">Turn the 5-star review from Chris W. in Silver Spring into a story post. Real job. Real neighborhood. Ranks for "furnace short cycling Silver Spring MD."</div></div></div>
+      <div class="blog-post"><span class="bp-num">02</span><span class="bp-tag tag-blue">HEAT PUMP</span><div class="bp-content"><div class="bp-title">Maryland heat pump rebates 2026: what Kensington and Bethesda homeowners actually qualify for</div><div class="bp-hook">BGE + Pepco numbers with live links. Nobody in the county has this post. First-mover advantage.</div></div></div>
+      <div class="blog-post"><span class="bp-num">03</span><span class="bp-tag tag-gold">LOCAL</span><div class="bp-content"><div class="bp-title">58 years of Rockville homes: what we've learned about HVAC in split-levels</div><div class="bp-hook">Legacy + hyperlocal + technical. The post that tells Google who Davis & Davis is and what they know.</div></div></div>
+      <div class="blog-post"><span class="bp-num">04</span><span class="bp-tag tag-green">TRUST</span><div class="bp-content"><div class="bp-title">What a proper maintenance visit includes — the full checklist we use on every contract call</div><div class="bp-hook">Directly addresses the Lori service contract complaint. Transparency post. Converts skeptics.</div></div></div>
+      <div class="blog-post"><span class="bp-num">05</span><span class="bp-tag tag-blue">HEAT PUMP</span><div class="bp-content"><div class="bp-title">Oil to heat pump in Montgomery County: the $15,000 rebate path nobody explains clearly</div><div class="bp-hook">Highest rebate tier. Specific to county. Zero competition for this exact query.</div></div></div>
+      <div class="blog-post"><span class="bp-num">06</span><span class="bp-tag tag-gold">AUTHORITY</span><div class="bp-content"><div class="bp-title">Washingtonian Magazine named us Home Improvement Experts in 2011. Here's what's changed — and what hasn't.</div><div class="bp-hook">The Washingtonian cover story deployed as content. Outbound link to Washingtonian = authority signal to Google.</div></div></div>
+      <div class="blog-post"><span class="bp-num">07</span><span class="bp-tag tag-purple">NEWSLETTER</span><div class="bp-content"><div class="bp-title">Your seasonal HVAC checklist — the Davis & Davis guide we send every spring and fall</div><div class="bp-hook">This IS the newsletter. Blog post + email capture. "Subscribe to get the seasonal checklist" = list building.</div></div></div>
+      <div class="blog-post"><span class="bp-num">08</span><span class="bp-tag tag-green">TRUST</span><div class="bp-content"><div class="bp-title">Why we turned down a $12,000 replacement job last week — and what we told the homeowner</div><div class="bp-hook">The highest-trust post type. Honest over profitable. Viral in the Kensington/Bethesda community.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ T.J. FANNON ═══════════════════════════════ -->
+<div class="page-section" id="sec-fannon">
+  <div class="sec-eyebrow">Company 02 · Alexandria, VA</div>
+  <h1 class="sec-title">Thomas J. Fannon & Sons</h1>
+  <p class="sec-sub">Est. 1890 · 135 years · tjfannon.com · (703) 549-5700 · Started as Fannon Fuel Oil & Heating Equipment · Has "Projects" section with case studies · Has historical illustration of original storefront · Current tagline: "Achieve Comfort with Our HVAC Solutions" — criminal waste of 135 years</p>
+
+  <div class="intel-strip">
+    <div class="intel-item"><div class="intel-label">Founded</div><div class="intel-val">1890</div><div class="intel-gap">Original illustration on site — never the hero</div></div>
+    <div class="intel-item"><div class="intel-label">Heritage</div><div class="intel-val">Fuel Oil → Coal → HVAC</div><div class="intel-val" style="color:var(--green);font-size:11px">Story spans energy transitions of the last century</div></div>
+    <div class="intel-item"><div class="intel-label">Projects section</div><div class="intel-val">EXISTS</div><div class="intel-val" style="color:var(--green);font-size:11px">Case studies ready — needs narrative treatment</div></div>
+    <div class="intel-item"><div class="intel-label">Current tagline</div><div class="intel-val">"Achieve Comfort with Our HVAC Solutions"</div><div class="intel-gap">135 years reduced to a template</div></div>
+    <div class="intel-item"><div class="intel-label">Heat pump page</div><div class="intel-val">Generic service pages</div><div class="intel-gap">No sequence education, no VA rebates</div></div>
+    <div class="intel-item"><div class="intel-label">Historical asset</div><div class="intel-val">1890s storefront illustration</div><div class="intel-gap">Buried mid-page. Should open every conversation.</div></div>
+  </div>
+
+  <div class="observation-grid">
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Illustration</div><div class="obs-text">There's a period illustration of the original Thomas J. Fannon & Sons storefront — Fuel Oil, Heating Equipment, Coal Plant, Building Materials. This is from what looks like the 1920s or 30s. This single image, properly deployed, communicates more authority than any copy ever could. It should be the hero image on the homepage, the GBP cover photo, the first thing in every email signature. It's currently buried mid-page on the About section.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Story Arc</div><div class="obs-text">Fannon started with coal and fuel oil. They adapted to natural gas. Then to modern HVAC. Now to heat pumps. This is the story of every energy transition in American residential heating — told through 135 years of one Alexandria family. No competitor can tell this story. The transition from "Fannon's Clean Coal Plant" to "heat pump installation with $15K Virginia rebates" is the single most compelling brand narrative in the entire DMV HVAC market.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">▲</div>
+      <div><div class="obs-lbl red">The Gap</div><div class="obs-text">Current GBP/web description: "For over 135 years, Thomas J. Fannon & Sons has been a cornerstone in Alexandria, providing top-notch HVAC services. You'll find our family-owned business committed to delivering free estimates, ensuring you receive the best value." The words "top-notch" and "best value" on a 135-year-old company is a crime against legacy. The historical illustration exists. The story exists. The case studies exist. None of it connects.</div></div>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">GBP / Website About</div><div class="copy-section-sub">135 years requires a different register entirely. Not "top-notch." Not "best value." This.</div></div>
+      <span class="deploy-badge db-gbp">DEPLOY: GBP + WEBSITE</span>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card ba-before">
+        <div class="ba-label">Current (Generic — A Crime Against Legacy)</div>
+        <div class="ba-text">"For over 135 years, Thomas J. Fannon & Sons has been a cornerstone in Alexandria, providing top-notch HVAC services. You'll find our family-owned business committed to delivering free estimates, ensuring you receive the best value. Our team is ready to install and service air conditioning systems, heat pumps, and gas equipment."</div>
+      </div>
+      <div class="ba-card ba-after">
+        <div class="ba-label">Rewritten (Earns the 135 Years)</div>
+        <div class="ba-text">"Thomas J. Fannon & Sons has served Alexandria since 1890. We started with coal and fuel oil. We adapted when gas came. We adapted again when modern HVAC arrived. Now we're the team Alexandria trusts for heat pumps, system replacements, and the installations that have to be done correctly the first time. 135 years isn't a credential. It's a record of outlasting every shortcut this industry has ever tried."</div>
+      </div>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">GBP Version <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Thomas J. Fannon & Sons has served Alexandria since 1890. We started delivering coal and fuel oil to Alexandria homes when the city was a different place entirely. We adapted through every energy transition of the last century — fuel oil to gas, gas to modern HVAC, and now to the heat pump revolution that's reshaping how Virginia homes are heated and cooled.</p>
+        <p>135 years isn't a marketing number. It's a record of being trusted by Alexandria families across five generations — and outlasting every shortcut, every oversell, and every fly-by-night competitor this industry has ever produced.</p>
+        <p>We offer complete HVAC installation, replacement, and service. Virginia heat pump rebates available for qualifying installations. Free estimates. (703) 549-5700</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy GBP Version</button>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">Homepage Hero Subtext (replaces "Achieve Comfort with Our HVAC Solutions") <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p><strong>Serving Alexandria since 1890.</strong></p>
+        <p>We started with coal. We adapted through fuel oil, natural gas, and every HVAC generation since. Today we install the heat pumps and high-efficiency systems that Virginia homeowners are switching to in 2026 — with the same standard of work that's kept this family in business for 135 years.</p>
+        <p>If it matters to your home, it matters to us. It always has.</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy Hero Text</button>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">The Historical Page</div><div class="copy-section-sub">One page that earns LLM citations, Google authority, and community pride simultaneously. Title: "135 Years in Alexandria — The Fannon Story"</div></div>
+      <span class="deploy-badge db-web">DEPLOY: WEBSITE</span>
+    </div>
+    <div class="copy-card">
+      <div class="copy-card-label">Historical Page Draft <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p><strong>1890.</strong> Thomas J. Fannon opens a fuel oil and building materials business at the corner of a growing Alexandria. The signage reads: "Fannon Fuel Oil. Heating Equipment. Coal Plant." Alexandria is still a city that heats with coal.</p>
+        <p><strong>The early decades.</strong> The Fannon family delivers fuel oil to Alexandria homes through both World Wars. Through the Depression — when keeping a home warm wasn't a comfort decision, it was a survival one. The company outlasts competitors who cut corners when money got tight. It survives because the name means something to the families who depend on it.</p>
+        <p><strong>The gas transition.</strong> Natural gas comes to the region. Most of the coal and oil industry collapses. Fannon adapts. The equipment changes; the commitment to Alexandria doesn't.</p>
+        <p><strong>Modern HVAC.</strong> Central air conditioning transforms residential comfort expectations. Thomas J. Fannon & Sons evolves again — now installing, servicing, and maintaining the systems that every Virginia home depends on through brutal summers and cold winters.</p>
+        <p><strong>2026.</strong> Virginia and federal heat pump rebates create the largest residential energy transition opportunity in a generation. The same family. The same address. The same standard. Different equipment — because that's always been the job: adapt to what works best for Alexandria homeowners, whatever form that takes.</p>
+        <p>135 years. Five generations. One standard: show up, do it right, be here tomorrow.</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy Historical Page</button>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Hyperlocal content angle nobody is using:</strong> King Street. Del Ray. Old Town. Cameron Station. Seminary Hill. Potomac Yard. Every Alexandria neighborhood has specific housing stock — pre-war rowhouses, 1950s colonials, newer construction. Fannon has installed in all of them for 135 years. One hyperlocal page per neighborhood = complete map pack domination for every Alexandria search. No competitor can replicate this because no competitor has been here long enough to have the neighborhood-specific knowledge.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ WARNER SERVICE ═══════════════════════════════ -->
+<div class="page-section" id="sec-warner">
+  <div class="sec-eyebrow">Company 03 · Frederick, MD</div>
+  <h1 class="sec-title">Warner Service</h1>
+  <p class="sec-sub">Est. 1937 · 88 years · warnerservice.com · (301) 200-9521 · R.W. Warner Plumbing & Heating origin · Period truck photos on About page · Daikin Comfort Pro dealer · Plumbing + HVAC + Remodeling · Current copy: good bones, zero personality</p>
+
+  <div class="intel-strip">
+    <div class="intel-item"><div class="intel-label">Founded</div><div class="intel-val">1937</div><div class="intel-gap">Great Depression era founding — never mentioned</div></div>
+    <div class="intel-item"><div class="intel-label">Heritage photos</div><div class="intel-val">R.W. Warner truck photos</div><div class="intel-val" style="color:var(--green);font-size:11px">3 period photos on About page — powerful</div></div>
+    <div class="intel-item"><div class="intel-label">Current copy</div><div class="intel-val">"Synonymous with value, quality, dependability"</div><div class="intel-gap">Good words, zero Frederick community connection</div></div>
+    <div class="intel-item"><div class="intel-label">Daikin Pro</div><div class="intel-val">Comfort Pro dealer</div><div class="intel-val" style="color:var(--green);font-size:11px">Heat pump credentialing already exists</div></div>
+    <div class="intel-item"><div class="intel-label">Multi-trade</div><div class="intel-val">HVAC + Plumbing + Remodel</div><div class="intel-val" style="color:var(--green);font-size:11px">Higher average ticket than HVAC-only</div></div>
+    <div class="intel-item"><div class="intel-label">Community angle</div><div class="intel-val">First in Frederick?</div><div class="intel-gap">This claim is unmade. Should be verified and owned.</div></div>
+  </div>
+
+  <div class="observation-grid">
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Truck Photos</div><div class="obs-text">Three period photos on the About page: R.W. Warner "Plumbing Heating Contractor" truck from what appears to be the 1940s–50s, a well pump service truck from the 1970s, and the modern Warner Service box truck. This is the visual progression of 88 years of service — and nobody is deploying it. These three photos together are a homepage hero that writes its own story.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Great Depression Origin</div><div class="obs-text">Warner Service was founded in 1937 — four years after the worst of the Depression but still in the shadow of it. The company was built during a period when Frederick families had almost nothing. Surviving and growing from that foundation is the story that no PE-backed competitor can replicate. "We were built during the Depression. We've outlasted everything since." That's not nostalgia — that's proof of quality under pressure.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">▲</div>
+      <div><div class="obs-lbl red">The Gap</div><div class="obs-text">Current About page copy: "Since 1937, the Warner name has been synonymous with value, quality, dependability, and integrity." These are the most generic words in the English language applied to the most specific company in Frederick. The truck photos are there. The history is there. The community connection is there. None of it is written. The Frederick, MD service area page is pure SEO template — zero personality, zero history, zero local humanity.</div></div>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">GBP / About Description</div><div class="copy-section-sub">Frederick community voice. Depression-era origin. The photos tell the story — the copy needs to match.</div></div>
+      <span class="deploy-badge db-gbp">DEPLOY: GBP + WEBSITE</span>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card ba-before">
+        <div class="ba-label">Current (Generic)</div>
+        <div class="ba-text">"Since 1937, the Warner name has been synonymous with value, quality, dependability, and integrity. Our unwavering commitment to customer satisfaction remains at the core of our values, and we strive every day to ensure that the needs of our customers and clients are our first priority."</div>
+      </div>
+      <div class="ba-card ba-after">
+        <div class="ba-label">Rewritten (Frederick Voice)</div>
+        <div class="ba-text">"R.W. Warner started this company in 1937 — Frederick, Maryland, four years out of the worst economic collapse in American history. The families we served didn't have much. Neither did we. What we had was the commitment to show up, do the work correctly, and be here the next time they needed us. 88 years later, that's still the job."</div>
+      </div>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">GBP Version <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>R.W. Warner started this company in 1937. Frederick, Maryland — four years out of the Depression, in a city that was still finding its footing. The families he served didn't have much margin for error. Neither did he. The only way to survive was to do the work correctly every single time.</p>
+        <p>88 years later, we're still here. We've outlasted every economic cycle, every industry disruption, and every wave of competition this market has seen. Not by being the cheapest — by being the company Frederick families call back.</p>
+        <p>HVAC, plumbing, and remodeling services across Frederick County and beyond. Daikin Comfort Pro dealer. Heat pump installations with Maryland rebates up to $15,000. (301) 200-9521</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy GBP Version</button>
+    </div>
+
+    <div class="copy-card">
+      <div class="copy-card-label">Frederick Service Area Page — Rewritten Opening <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Frederick, Maryland has been Warner Service's home since 1937. Not "our service area." Our home.</p>
+        <p>We've worked in the rowhouses of downtown Frederick, the farmhouses of the county, the post-war neighborhoods that grew up along Route 40, and the newer developments that keep pushing the city's borders outward. We know Frederick's housing stock the way you only learn it by working in it for 88 years — which walls are plaster, which basements flood in heavy rain, which neighborhoods have the oldest ductwork, which areas converted late from oil.</p>
+        <p>When you call Warner Service in Frederick, you're not calling a franchise. You're calling the company that has been here since your grandparents' generation — and will be here for the next one.</p>
+        <p>HVAC · Plumbing · Remodeling · Heat pumps · Emergency service · Maintenance plans. (301) 200-9521</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy Service Area Opening</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ AIR DOCTOR ═══════════════════════════════ -->
+<div class="page-section" id="sec-airdoctor">
+  <div class="sec-eyebrow">Company 04 · DMV Area</div>
+  <h1 class="sec-title">Air Doctor HVAC</h1>
+  <p class="sec-sub">airdoctorhvac.com · Owner Scott, career since 1993 · Tech-forward · Water heater rebate page exists (EmPOWER Maryland, Potomac Edison) · Chekkit chatbot (text-back popup) · Generic logo · Stock photos everywhere · The content is almost there — the presentation is holding it back</p>
+
+  <div class="intel-strip">
+    <div class="intel-item"><div class="intel-label">Owner</div><div class="intel-val">Scott · Since 1993</div><div class="intel-val" style="color:var(--green);font-size:11px">30+ years personal expertise — never mentioned</div></div>
+    <div class="intel-item"><div class="intel-label">Rebate page</div><div class="intel-val">EXISTS (water heaters)</div><div class="intel-val" style="color:var(--green);font-size:11px">EmPOWER + Potomac Edison — knows the programs</div></div>
+    <div class="intel-item"><div class="intel-label">Chatbot</div><div class="intel-val">Chekkit (text-back)</div><div class="intel-gap">Annoying popup. VAPI replaces this properly.</div></div>
+    <div class="intel-item"><div class="intel-label">Photos</div><div class="intel-val">All stock</div><div class="intel-gap">No real jobs, no real people, no real DMV</div></div>
+    <div class="intel-item"><div class="intel-label">Logo</div><div class="intel-val">Weak (per your assessment)</div><div class="intel-gap">Doesn't matter. Content is the play.</div></div>
+    <div class="intel-item"><div class="intel-label">Law of Sequence</div><div class="intel-val">Not present</div><div class="intel-gap">Scott will understand it immediately. Natural fit.</div></div>
+  </div>
+
+  <div class="observation-grid">
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Tech-Forward Alignment</div><div class="obs-text">Air Doctor already has a water heater rebate page with EmPOWER Maryland and Potomac Edison numbers. They know the programs. They've done the research. What they don't have is the Law of Sequence framing, the blower door → envelope → Manual J protocol, or the heat pump authority page. Scott started in 1993 — he has 30+ years of technical credibility that isn't deployed anywhere on the site. Walk in with the DMV Heat Pumps page and he will understand it immediately.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The VAPI Play</div><div class="obs-text">They have a Chekkit text-back chatbot popup. It's the annoying "We are here to help. A person on our team will text you back!" popup that every homeowner dismisses. Replace it with VAPI: answers immediately, qualifies the call as emergency vs. non-emergency in real time, routes to the on-call tech with instant transcript. This is the easiest $2,000–3,000 add-on conversation of any outreach you have. Scott is tech-forward enough to immediately understand the upgrade.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">▲</div>
+      <div><div class="obs-lbl red">The Gap</div><div class="obs-text">Stock photos everywhere. Not one real job photo, not one real technician, not one real DMV home. In 2026 this is the difference between a company that ranks and a company that doesn't. Google's visual search, AI overviews, and LLM citations all favor companies with documented real-world evidence. "We install heat pumps" with a stock photo of a house from Getty Images vs. "Here's the 1962 colonial in Rockville where we installed a Daikin cold-climate system last Tuesday" — those are different planets in terms of trust and authority.</div></div>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">GBP / About Description</div><div class="copy-section-sub">Scott's 30 years + tech-forward positioning + Law of Sequence adoption = differentiation nobody else in the market has.</div></div>
+      <span class="deploy-badge db-gbp">DEPLOY: GBP + WEBSITE</span>
+    </div>
+    <div class="copy-card">
+      <div class="copy-card-label">GBP Version <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Scott has been in HVAC since 1993. Over 30 years of diagnosing, installing, and servicing systems across the DMV — which means he's seen what happens when shortcuts get taken, and why they always cost more in the end.</p>
+        <p>Air Doctor is tech-forward by design. We stay current on heat pump technology, rebate programs, and installation standards because that's what our customers deserve — a team that knows what's available and how to access it correctly.</p>
+        <p>Maryland EmPOWER and Potomac Edison rebates available for qualifying installations. We walk you through eligibility before any commitment. Heat pump installations, water heater replacements, HVAC service and repair across the DC metro area.</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy GBP Version</button>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>The pitch to Scott in one paragraph:</strong> "You already know the rebate programs — you have the EmPOWER and Potomac Edison page. What you don't have is the content that connects that knowledge to the homeowner who's searching right now. I've built a framework called the Law of Sequence that explains why the blower door test, envelope work, and Manual J calculation have to come before any heat pump install. You understand this already — it's what 30 years teaches you. The page makes it visible to the homeowner who's about to make a $20,000 decision without that knowledge. That page becomes your reason to be called first."
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ JOHNSON & JOHNSON ═══════════════════════════════ -->
+<div class="page-section" id="sec-johnson">
+  <div class="sec-eyebrow">Company 05 · Frederick, MD Area</div>
+  <h1 class="sec-title">Johnson & Johnson Heating</h1>
+  <p class="sec-sub">301-485-5364 · "Providing Comfort to Families for 30+ Years" · Frederick MD area · Comfort Club membership program · Online payment · Heat pump content present but generic · Established local player</p>
+
+  <div class="intel-strip">
+    <div class="intel-item"><div class="intel-label">History</div><div class="intel-val">30+ years</div><div class="intel-gap">Specific founding year not on site</div></div>
+    <div class="intel-item"><div class="intel-label">Comfort Club</div><div class="intel-val">Membership program</div><div class="intel-val" style="color:var(--green);font-size:11px">Revenue structure is right — execution is generic</div></div>
+    <div class="intel-item"><div class="intel-label">Heat pump content</div><div class="intel-val">Signs of failure listed</div><div class="intel-gap">Short cycling listed but no sequence education</div></div>
+    <div class="intel-item"><div class="intel-label">Frederick identity</div><div class="intel-val">"Proud to call Frederick home"</div><div class="intel-gap">Says it, doesn't show it</div></div>
+  </div>
+
+  <div class="observation-grid">
+    <div class="obs-card">
+      <div class="obs-icon">◆</div>
+      <div><div class="obs-lbl gold">The Opening</div><div class="obs-text">They actually say "HEating and Cooling company in the Frederick Maryland area, we are proud to call Frederick our home and will continue to take pride in to this day learning something new everyday in becoming better at our craft." That's genuine. It just needs structure. "Learning something new everyday" is a content strategy waiting to happen — blog posts, GBP updates, every new thing they learn becomes a post. That's the flywheel.</div></div>
+    </div>
+    <div class="obs-card">
+      <div class="obs-icon">▲</div>
+      <div><div class="obs-lbl red">The Gap</div><div class="obs-text">Heat pump "signs of failure" content exists (short cycling, loud noises, inefficient heating) but no Law of Sequence. No rebate education. No blower door discussion. Their Comfort Club is a great product that's been given no marketing weight. "Providing Comfort to Families for 30+ Years" — this headline could belong to any HVAC company in any city in America.</div></div>
+    </div>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-section-hdr">
+      <div><div class="copy-section-title">GBP / About Rewrite</div></div>
+      <span class="deploy-badge db-gbp">DEPLOY: GBP</span>
+    </div>
+    <div class="copy-card">
+      <div class="copy-card-label">GBP Version <span style="font-size:9px;color:var(--gold)">COPY THIS</span></div>
+      <div class="copy-body">
+        <p>Johnson & Johnson Heating has been serving the Frederick area for over 30 years. We're not a franchise. We're not a rollup. We're Frederick locals who have been in your neighbors' homes through every cold snap and every heat wave this region has thrown at us for three decades.</p>
+        <p>We built the Comfort Club because we believe in maintenance relationships, not emergency calls. Catch problems before they become replacements. That's better for your home and better for your budget.</p>
+        <p>Heat pump installations, HVAC repair and maintenance, emergency service. We learn something new every day — and we share it. (301) 485-5364</p>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this)">Copy GBP Version</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('visible'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('visible');
+  event.target.classList.add('active');
+  window.scrollTo(0,0);
+}
+function copyBlock(btn) {
+  const body = btn.previousElementSibling;
+  const text = body.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied ✓';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  });
+}
+</script>
+</body>
+</html>
