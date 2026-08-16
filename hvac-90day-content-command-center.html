@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day HVAC Content Command Center</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fafaf9; color: #1a1a1a; }
+.cmd { max-width: 900px; margin: 0 auto; padding-bottom: 80px; }
+.top-bar {
+  background: #f1efe8; border-bottom: 1px solid #e0ddd5;
+  padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 10;
+}
+.top-title { font-size: 16px; font-weight: 600; color: #1a1a1a; }
+.top-sub { font-size: 12px; color: #6b6b6b; margin-top: 2px; }
+.filter-row {
+  display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 24px;
+  border-bottom: 1px solid #e8e5de; background: #fff;
+  position: sticky; top: 69px; z-index: 9;
+}
+.fb {
+  padding: 5px 13px; border-radius: 6px; border: 1px solid #d0cdc4;
+  background: transparent; color: #6b6b6b;
+  font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.12s;
+}
+.fb:hover { background: #f5f3ee; color: #1a1a1a; }
+.fb.on { background: #f1efe8; color: #1a1a1a; border-color: #a09880; font-weight: 600; }
+.month-block { padding: 0 24px 8px; }
+.month-hdr {
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px 0 12px; border-bottom: 1px solid #e8e5de; margin-bottom: 12px;
+}
+.month-num {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; flex-shrink: 0;
+}
+.m1 .month-num { background: #FAECE7; color: #712B13; }
+.m2 .month-num { background: #E1F5EE; color: #085041; }
+.m3 .month-num { background: #EEEDFE; color: #3C3489; }
+.month-label { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+.month-focus { font-size: 12px; color: #888; margin-top: 2px; }
+.week-section { margin-bottom: 14px; }
+.week-tag { font-size: 11px; color: #aaa; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; padding-left: 2px; }
+.post-row {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px;
+  background: #fff; border: 1px solid #ede9e0;
+  border-radius: 8px; margin-bottom: 6px;
+}
+.post-row:hover { background: #faf8f4; border-color: #d4cfc4; }
+.tag-pill {
+  flex-shrink: 0; padding: 3px 9px; border-radius: 10px;
+  font-size: 11px; font-weight: 600; white-space: nowrap; margin-top: 1px;
+}
+.tag-gap    { background: #FAECE7; color: #712B13; }
+.tag-local  { background: #EAF3DE; color: #27500A; }
+.tag-heat   { background: #FAEEDA; color: #633806; }
+.tag-trust  { background: #EEEDFE; color: #3C3489; }
+.tag-hist   { background: #E1F5EE; color: #085041; }
+.tag-review { background: #F1EFE8; color: #444441; }
+.post-title { font-size: 13.5px; color: #1a1a1a; line-height: 1.5; flex: 1; font-weight: 500; }
+.post-note { font-size: 11.5px; color: #888; margin-top: 3px; font-weight: 400; }
+.asset-bar {
+  background: #f1efe8; border-top: 1px solid #e0ddd5;
+  padding: 14px 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  position: fixed; bottom: 0; left: 0; right: 0;
+}
+.asset-label { font-size: 12px; color: #888; margin-right: 4px; }
+.asset-btn {
+  padding: 6px 14px; border-radius: 6px; border: 1px solid #d0cdc4;
+  background: #fff; color: #1a1a1a; font-size: 12px;
+  cursor: pointer; font-family: inherit; font-weight: 500;
+}
+.asset-btn:hover { background: #f5f3ee; }
+.count-badge { font-size: 12px; color: #888; padding: 0 8px; margin-left: auto; }
+.legend {
+  display: flex; gap: 10px; flex-wrap: wrap; padding: 10px 24px;
+  border-bottom: 1px solid #e8e5de; background: #faf8f4;
+}
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+.leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="cmd">
+
+<div class="top-bar">
+  <div>
+    <div class="top-title">90-Day HVAC Content Command Center</div>
+    <div class="top-sub">Every title ranked by competitor gap and LLM authority signal · MBRACE Insight LLC</div>
+  </div>
+  <span class="count-badge" id="count-badge">90 posts</span>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#FAECE7;border:1px solid #F0997B"></div>FH Furr gap</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#EAF3DE;border:1px solid #97C459"></div>Hyperlocal</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#FAEEDA;border:1px solid #EF9F27"></div>Heat pump</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#EEEDFE;border:1px solid #AFA9EC"></div>Trust</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#E1F5EE;border:1px solid #5DCAA5"></div>Historic homes</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#F1EFE8;border:1px solid #B4B2A9"></div>GBP post</div>
+</div>
+
+<div class="filter-row">
+  <button class="fb on" onclick="setFilter('all',this)">All content</button>
+  <button class="fb" onclick="setFilter('gap',this)">FH Furr gap</button>
+  <button class="fb" onclick="setFilter('heat',this)">Heat pump</button>
+  <button class="fb" onclick="setFilter('local',this)">Hyperlocal</button>
+  <button class="fb" onclick="setFilter('hist',this)">Historic homes</button>
+  <button class="fb" onclick="setFilter('trust',this)">Trust / review</button>
+  <button class="fb" onclick="setFilter('review',this)">GBP posts</button>
+</div>
+
+<div id="content-list"></div>
+
+<div class="asset-bar">
+  <span class="asset-label">Assets built:</span>
+  <button class="asset-btn">Heat pump money page</button>
+  <button class="asset-btn">Historic homes page</button>
+  <button class="asset-btn">Davis & Davis drop package</button>
+  <button class="asset-btn">QR review flyer</button>
+  <button class="asset-btn">Holtzople outreach email</button>
+</div>
+
+</div>
+
+<script>
+const posts = [
+  {m:1,w:1,tag:"gap",title:"AC not cooling in Kensington MD — what it actually means before you call",note:"FH Furr has zero local-specific diagnostic content"},
+  {m:1,w:1,tag:"gap",title:"Furnace repair in Silver Spring MD — what to check first (honest guide)",note:"Competes directly on highest-intent local query"},
+  {m:1,w:1,tag:"heat",title:"Maryland heat pump rebates 2026 — the actual numbers from BGE and Pepco",note:"No competitor has this with live links"},
+  {m:1,w:1,tag:"local",title:"Why older Kensington homes freeze their AC every July (airflow, not the unit)",note:"Hyperlocal intel that a franchise cannot fake"},
+  {m:1,w:2,tag:"gap",title:"Emergency HVAC repair Montgomery County — when to call immediately vs. wait",note:"High-intent query, zero educational content from competitors"},
+  {m:1,w:2,tag:"heat",title:"Is a heat pump worth it in Maryland winters? The straight answer",note:"#1 homeowner question — nobody answers it honestly"},
+  {m:1,w:2,tag:"local",title:"Furnace repair in Bethesda MD — what we see most in homes built before 1975",note:"Age-specific local content — FH Furr cannot replicate"},
+  {m:1,w:2,tag:"trust",title:"What a proper HVAC maintenance visit should actually include (full checklist)",note:"Directly addresses service contract complaints visible in reviews"},
+  {m:1,w:3,tag:"heat",title:"Heat pump vs gas furnace in Maryland — the honest comparison for 2026",note:"Decision-stage content, enormous search volume"},
+  {m:1,w:3,tag:"gap",title:"Cost to replace HVAC system in Montgomery County — real ranges, no fluff",note:"FH Furr hides pricing, you show it — massive trust delta"},
+  {m:1,w:3,tag:"local",title:"AC repair in Rockville MD — the most common calls we handle all summer",note:"Service area page that doubles as GBP signal"},
+  {m:1,w:3,tag:"trust",title:"Why your AC keeps freezing up in Maryland humidity (causes + what to do)",note:"High shareability — maps to real homeowner anxiety"},
+  {m:1,w:4,tag:"gap",title:"Why some HVAC repairs fail — and what separates a good diagnostic from a bad one",note:"Addresses repeat-visit complaint pattern in reviews"},
+  {m:1,w:4,tag:"heat",title:"Maryland heat pump installation cost after rebates — what homeowners actually pay",note:"Post-rebate numbers nobody publishes"},
+  {m:1,w:4,tag:"local",title:"HVAC in Chevy Chase MD — what 1920s and 1930s homes actually need",note:"Historic home + hyperlocal — category of one"},
+  {m:1,w:4,tag:"trust",title:"How to read your HVAC contractor's quote — what to look for and what to question",note:"Positions as advisor, not seller — massive differentiation"},
+  {m:2,w:5,tag:"heat",title:"The blower door test — why it must come before any heat pump installation",note:"Owns the technical positioning no competitor is teaching"},
+  {m:2,w:5,tag:"hist",title:"Heat pumps for historic homes in Maryland — no ductwork, no problem",note:"The niche page that doesn't exist anywhere in DMV"},
+  {m:2,w:5,tag:"gap",title:"How long should an AC last in Maryland — and what shortens its life",note:"Evergreen lifecycle content, zero competition"},
+  {m:2,w:5,tag:"local",title:"HVAC service in Germantown MD — what newer construction needs vs older stock",note:"Splits the market intelligently by home era"},
+  {m:2,w:6,tag:"heat",title:"Manual J load calculation — why the square footage guess wrecks your system",note:"Technical authority signal for Google and LLMs"},
+  {m:2,w:6,tag:"hist",title:"Ductless mini-splits for 1920s homes — preserving plaster walls while adding comfort",note:"Directly answers the #1 fear of historic homeowners"},
+  {m:2,w:6,tag:"gap",title:"Signs your furnace is about to fail — 8 specific warning signs to act on now",note:"High urgency, high shareability, weak competitor coverage"},
+  {m:2,w:6,tag:"local",title:"AC not working in Silver Spring MD — same-day diagnosis guide",note:"Pure high-intent local capture"},
+  {m:2,w:7,tag:"heat",title:"Oil to heat pump conversion in Maryland — the complete guide with rebates",note:"Highest rebate tier, underserved content — this page prints money"},
+  {m:2,w:7,tag:"hist",title:"Frederick County historic homes and heat pumps — why the sequence matters",note:"Local + historic + technical — triple authority signal"},
+  {m:2,w:7,tag:"trust",title:"How we respond when something goes wrong — our service promise in writing",note:"Directly addresses negative review themes, builds pre-trust"},
+  {m:2,w:7,tag:"gap",title:"HVAC system replacement in Montgomery County — what to expect from start to finish",note:"Buyer-stage content, weak competitor coverage"},
+  {m:2,w:8,tag:"heat",title:"Air sealing before heat pump installation — why skipping this step costs you thousands",note:"The step no competitor explains"},
+  {m:2,w:8,tag:"local",title:"Furnace not working in Gaithersburg MD — what to check before you call",note:"Self-serve guide that builds trust before service"},
+  {m:2,w:8,tag:"hist",title:"Plaster wall homes and HVAC — the 3-inch solution that changes everything",note:"Specific technical answer to specific homeowner fear"},
+  {m:2,w:8,tag:"review",title:"GBP post: we just replaced a 40-year oil system in Thurmont — here's what we found",note:"Real job story — geographic and technical authority"},
+  {m:3,w:9,tag:"heat",title:"EmPOWER Maryland explained — step by step for homeowners who want the rebate",note:"Frictionless rebate guide — links to every portal"},
+  {m:3,w:9,tag:"hist",title:"Balloon framing and heat pumps — what contractors get wrong in pre-WWII homes",note:"Deeply technical, deeply authoritative, zero competition"},
+  {m:3,w:9,tag:"local",title:"Best HVAC system for older homes in Maryland — by era and construction type",note:"Decision guide organized by decade — nobody does this"},
+  {m:3,w:9,tag:"gap",title:"What homeowners misunderstand about HVAC quotes — 5 things to watch for",note:"Turns skepticism into trust, positions as honest broker"},
+  {m:3,w:10,tag:"heat",title:"Cold-climate heat pumps in Maryland — do they really work when it drops below 20°F",note:"The fear question — answered with specifics, not marketing"},
+  {m:3,w:10,tag:"hist",title:"Cast iron radiators and modern heat pumps — how to keep what works and upgrade the rest",note:"The hydronic preservation angle — no one is writing this"},
+  {m:3,w:10,tag:"trust",title:"Why we do the blower door test first — and what it reveals about your home",note:"Educates while positioning Law of Sequence"},
+  {m:3,w:10,tag:"local",title:"HVAC in Olney and Damascus MD — what propane homes qualify for in 2026",note:"Propane = maximum rebate tier, underserved geographic pocket"},
+  {m:3,w:11,tag:"heat",title:"Ductless mini-split vs central heat pump in Maryland — which is right for your home",note:"Decision-stage content with high conversion intent"},
+  {m:3,w:11,tag:"hist",title:"Stone farmhouse HVAC in Frederick County — the complete modern comfort guide",note:"The single most specific page in the DMV market"},
+  {m:3,w:11,tag:"gap",title:"Emergency heating repair in Maryland — what qualifies, what doesn't, and who to call",note:"Urgency capture + safety framing + trust"},
+  {m:3,w:11,tag:"local",title:"HVAC for Potomac MD homes — what larger properties need that standard installs miss",note:"Premium market, premium expectations — own this segment"},
+  {m:3,w:12,tag:"review",title:"GBP post: heat pump installed in a 1938 Emmitsburg farmhouse — zero plaster damage",note:"The story that proves the historic homes identity"},
+  {m:3,w:12,tag:"trust",title:"What the Law of Sequence means — why we never skip a step and why it protects you",note:"Identity-defining content — the page that tells Google who you are"},
+  {m:3,w:12,tag:"heat",title:"Maryland heat pump insulation requirements — what has to come before the install",note:"Technical moat content, rebate-linked, zero competition"},
+  {m:3,w:12,tag:"local",title:"Hagerstown and Washington County HVAC — why Western Maryland homes need a different approach",note:"Geographic expansion — Holtzople and Warner Service territory"},
+  {m:1,w:1,tag:"review",title:"GBP post: AC frozen in Kensington — what we found and how long the fix took",note:"Real job post — moment-of-trust content"},
+  {m:1,w:2,tag:"review",title:"GBP post: furnace warning signs we spotted before it failed — Silver Spring home",note:"Preventive story post — builds anticipatory trust"},
+  {m:1,w:3,tag:"review",title:"GBP post: what homeowners in Bethesda are switching to in 2026 and why",note:"Social proof + heat pump authority"},
+  {m:1,w:4,tag:"review",title:"GBP post: responding to 'why is HVAC so expensive' — honest answer from us",note:"Addresses the #1 objection before it becomes a negative review"},
+  {m:2,w:5,tag:"review",title:"GBP post: heat pump rebate walkthrough — what one Rockville homeowner actually received",note:"Real numbers, real outcome — the most shareable post type"},
+  {m:2,w:6,tag:"review",title:"GBP post: what we check on every maintenance visit — the full list, no secrets",note:"Transparency post — directly addresses service contract complaints"},
+  {m:2,w:7,tag:"review",title:"GBP post: 58 years of Montgomery County homes — what we've learned that no one teaches",note:"Legacy identity post — feeds Google AI summaries directly"},
+  {m:2,w:8,tag:"review",title:"GBP post: a homeowner asked us not to replace their system. here's why we agreed.",note:"The most trust-building post type — honest over profitable"},
+  {m:3,w:9,tag:"review",title:"GBP post: ductless mini-split in a 1924 colonial — what it looked like before and after",note:"Historic homes proof post"},
+  {m:3,w:10,tag:"review",title:"GBP post: why we turned down a job last week (and what we told the homeowner)",note:"Integrity signal — rare, memorable, shareable"},
+  {m:3,w:11,tag:"review",title:"GBP post: oil to heat pump in Frederick County — timeline, rebates, what happened",note:"Conversion story — the highest-value job type documented"},
+  {m:3,w:12,tag:"review",title:"GBP post: what 90 days of sharing what we know has changed — thank you Montgomery County",note:"Community close — resets for the next 90 days"},
+];
+
+const tagLabels = {gap:"FH Furr gap",local:"Hyperlocal",heat:"Heat pump",trust:"Trust",hist:"Historic homes",review:"GBP post"};
+const monthLabels = ["Month 1 — Capture & Credibility","Month 2 — Authority & Historic Niche","Month 3 — Dominance & Identity"];
+const monthFocus = [
+  "High-intent local capture. Own the urgent searches. Answer what nobody answers.",
+  "Technical moat. Historic homes niche. The content that establishes you as the authority LLMs cite.",
+  "Identity lock. Competitor separation. The 90-day close that makes you the answer — everywhere."
+];
+
+let current = 'all';
+
+function setFilter(f, btn) {
+  current = f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+
+function render() {
+  const list = document.getElementById('content-list');
+  list.innerHTML = '';
+  let shown = 0;
+
+  for (let m = 1; m <= 3; m++) {
+    const mPosts = posts.filter(p => p.m === m && (current === 'all' || p.tag === current));
+    if (!mPosts.length) continue;
+
+    const mb = document.createElement('div');
+    mb.className = `month-block m${m}`;
+
+    const hdr = document.createElement('div');
+    hdr.className = 'month-hdr';
+    hdr.innerHTML = `<div class="month-num">${m}</div><div><div class="month-label">${monthLabels[m-1]}</div><div class="month-focus">${monthFocus[m-1]}</div></div>`;
+    mb.appendChild(hdr);
+
+    const weeksInMonth = m === 1 ? [1,2,3,4] : m === 2 ? [5,6,7,8] : [9,10,11,12];
+    weeksInMonth.forEach(w => {
+      const wPosts = mPosts.filter(p => p.w === w);
+      if (!wPosts.length) return;
+      const ws = document.createElement('div');
+      ws.className = 'week-section';
+      ws.innerHTML = `<div class="week-tag">Week ${w}</div>`;
+      wPosts.forEach(p => {
+        shown++;
+        const row = document.createElement('div');
+        row.className = 'post-row';
+        row.innerHTML = `<span class="tag-pill tag-${p.tag}">${tagLabels[p.tag]}</span><div><div class="post-title">${p.title}</div><div class="post-note">${p.note}</div></div>`;
+        ws.appendChild(row);
+      });
+      mb.appendChild(ws);
+    });
+
+    list.appendChild(mb);
+  }
+
+  document.getElementById('count-badge').textContent = shown + ' posts';
+}
+
+render();
+</script>
+</body>
+</html>
